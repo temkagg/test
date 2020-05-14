@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+   <div class="xs=2">
+      <div class="form-group">
+         <h2><a href="/">Read, Read More Books</a></h2>
+      </div>
+   </div>
+   <p>
+      {{hi}}
+   </p>
+   <div class="xs=2">
+      <div class="form-group">
+         <form method="post">
+            <button color="primary" class="mui-btn mui-btn--raised" name="submit_button" type="submit" value="myList">My List</button>
+         </form>
+      </div>
+   </div>
+   <div class="xs=6">
+      <div class="form-group">
+         <button color="primary" class="mui-btn mui-btn--raised" name="submit_button" type="submit" onclick="requestData('name')">Challenge</button>
+      </div>
+      <div class="mui-container mui--text-center">
+         <div class="mui-panel mui--text-center" id="response"></div>
+      </div>
+   </div>
+</div>
+<style>
+   p {
+   text-align: center;
+   }
+   body {
+   background-image: url(https://images.unsplash.com/photo-1519120944692-1a8d8cfc107f?ixlib=rb-1.2.1&auto=format&fit=crop&w=376&q=80);
+   }
+   section {
+   color: black;
+   text-align: center;
+   }
+</style>
+<div class="results">
+</div>
+<form method="post">
+   <table id="roster" class="mui-table">
+      <thead>
+         <th>Book Name</th>
+         <th>Average Review</th>
+         <th>Ratings Count</th>
+         <th>Publisher</th>
+      </thead>
+      <tbody>
+         {% for s in roster %}
+         <tr value="add">
+            <td value="add" name="add" class="nr">{{ s[2] }}</td>
+            <input type="hidden" name="add3" value="{{ s[0] }}" /> 
+            <td value="add" name="add1">{{ s[4] }}</td>
+            <td value="add" name="add2">{{ s[9] }}</td>
+            <td value="add" name="add3">{{ s[12] }}</td>
+            <!-- <td>
+               <button name="submit_button" color="primary" value="add" onclick="add()">Add To my List</button>
+               </td> -->
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+</form>
+</div>
+<script>
+   // For more improvement, I could use JQuery to select, but I tried it so much 
+   // Could not do it :(
+   // $(".use-address").click(function() {
+   //     var $row = $(this).closest("tr");    // Find the row
+   //     var $text = $row.find(".nr").text(); // Find the text
+       
+   //     $('.results').html($text);
+   // });
+   
+   
+   const BASE_URL = "http://untii.pythonanywhere.com/api/v1/"
+   
+   async function requestData(typeOfData) {
+       return fetch(`${BASE_URL}/${typeOfData}`)
+       .then(response => response.json())
+       .then(json => printData(json[typeOfData]))
+       .catch(error => console.log(error))
+   }
+   
+   function printData(data) {
+       let responseDiv = document.querySelector("#response");
+       responseDiv.innerHTML = data;
+   }
+   
+   $(document).ready(function () {
+       $("#roster").DataTable();
+   });
+   
+   
+</script>
+<!-- Copyright Section -->
+<section class="copyright py-4 text-center text-white">
+   <div class="container">
+      <small>Copyright &copy; Temuulen Erdenebulgan 2020</small>
+   </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+   div {
+   margin-top: 200px;  
+   }
+   label {
+   font-size: large;
+   margin-right: 50px;
+   }
+   body {
+   background-image: url(https://images2.alphacoders.com/261/26102.jpg);
+   color: white;
+   }
+</style>
+<div class="mui-container mui--text-center">
+   <form method="post">
+      <label>Name</label>
+      </br>
+      <input type=text name=username>
+      <button class="mui-btn mui-btn--primary mui-btn--raised">Login</button>
+   </form>
+</div>
+{% endblock %}
